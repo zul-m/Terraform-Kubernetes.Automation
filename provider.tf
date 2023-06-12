@@ -15,4 +15,5 @@ variable "civo_token" {
 
 provider "civo" {
   token = var.civo_token
+  region = "NYC1"
 }
