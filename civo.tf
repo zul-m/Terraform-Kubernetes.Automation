@@ -53,3 +53,19 @@ resource "civo_firewall" "kubernetes_api" {
   action = "allow"
   label = "kubernetes_api"
 }
+
+resource "time_sleep" "wait_for_kubernetes" {
+  depends_on = [
+    civo_kubernetes_cluster.k8s_demo_1
+  ]
+
+  create_duration = "20s"
+}
+
+data "civo_loadbalancer" "traefik_lb" {
+  depends_on = [
+    helm_release.traefik
+  ]
+
+  name = "k8s_demo_1-traefik-traefik"
+}
