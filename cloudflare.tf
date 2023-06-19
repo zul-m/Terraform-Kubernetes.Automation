@@ -5,7 +5,7 @@ resource "kubernetes_secret" "cloudflare_api_key_secret" {
   ]
 
   metadata {
-    name = ""
+    name = "cloudflare-api-key-secret"
     namespace = "certmanager"
   }
 
