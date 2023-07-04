@@ -14,7 +14,7 @@ resource "kubernetes_deployment" "nginx1" {
   ]
 
   metadata {
-    name = "nginx1"
+    name      = "nginx1"
     namespace = "nginx1"
     labels = {
       app = "nginx1"
@@ -38,7 +38,7 @@ resource "kubernetes_deployment" "nginx1" {
       spec {
         container {
           image = "nginx:latest"
-          name = "nginx"
+          name  = "nginx"
 
           port {
             container_port = 80
@@ -55,15 +55,15 @@ resource "kubernetes_service" "nginx1" {
   ]
 
   metadata {
-    name = "nginx1"
+    name      = "nginx1"
     namespace = "nginx1"
   }
   spec {
     selector {
-        app = "nginx1"
+      app = "nginx1"
     }
     port {
-        port = 80
+      port = 80
     }
     type = "ClusterIP"
   }
@@ -96,7 +96,7 @@ resource "kubernetes_ingress_v1" "nginx1" {
   ]
 
   metadata {
-    name = "nginx1"
+    name      = "nginx1"
     namespace = "nginx1"
   }
   spec {
@@ -118,15 +118,15 @@ resource "kubernetes_ingress_v1" "nginx1" {
     }
     tls {
       secret_name = "nginx1"
-      hosts = ["nginx1.clcreative.de"]
+      hosts       = ["nginx1.clcreative.de"]
     }
   }
 }
 
 resource "cloudflare_record" "clcreative-main-cluster" {
   zone_id = ""
-  name = "nginx1.clcreative.de"
-  value = data.civo_loadbalancer.traefik_lb
-  type = "A"
+  name    = "nginx1.clcreative.de"
+  value   = data.civo_loadbalancer.traefik_lb
+  type    = "A"
   proxied = false
 }
